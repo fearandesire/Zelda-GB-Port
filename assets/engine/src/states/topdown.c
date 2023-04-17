@@ -29,22 +29,32 @@ void topdown_init() BANKED {
         // Snap to 16px grid
         PLAYER.pos.x = ((PLAYER.pos.x >> 8) << 8);
         PLAYER.pos.y = ((PLAYER.pos.y >> 8) << 8) + 128;
-    } else {
+    } else if (topdown_grid == 4) {
+        // Snap to 4px grid
+        PLAYER.pos.x = ((PLAYER.pos.x >> 6) << 6);
+        PLAYER.pos.y = ((PLAYER.pos.y >> 6) << 6);
+    } else
+    {
         PLAYER.pos.x = ((PLAYER.pos.x >> 7) << 7);
         PLAYER.pos.y = ((PLAYER.pos.y >> 7) << 7);
     }
 }
 
+/** 
+ * Update the topdown state - Refreshes as the player moves
+ * Checks for collisions and triggers, handles player movement and player interaction with 'actors'
+ * 
+*/
 void topdown_update() BANKED {
     actor_t *hit_actor;
     UBYTE tile_start, tile_end;
     direction_e new_dir = DIR_NONE;
 
-    // Is player on an 8x8px tile?
+    // Is player on an 8x8px or 16x16px or 4x4px tile?
     if ((topdown_grid == 16 && ON_16PX_GRID(PLAYER.pos)) ||
-        (topdown_grid == 8 && ON_8PX_GRID(PLAYER.pos))) {
-        // Player landed on an tile
-        // so stop movement for now
+        (topdown_grid == 8 && ON_8PX_GRID(PLAYER.pos)) ||
+        (topdown_grid == 4 && ON_4PX_GRID(PLAYER.pos))) {
+        // Player landed on a tile, so stop movement for now
         player_moving = FALSE;
 
         // Check for trigger collisions

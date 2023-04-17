@@ -11,6 +11,8 @@
 #define PLAYER                actors[0]
 #define ON_8PX_GRID(A)        ( MOD_8((A).x >> 4) == 0 &&  MOD_8((A).y >> 4) == 0)
 #define ON_16PX_GRID(A)       (MOD_16((A).x >> 4) == 0 && MOD_16((A).y >> 4) == 8)
+#define ON_4PX_GRID(A)        ( MOD_4((A).x >> 3) == 0 &&  MOD_4((A).y >> 3) == 0)
+
 
 #define PLAYER_HURT_IFRAMES   20
 

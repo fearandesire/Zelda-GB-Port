@@ -178,6 +178,7 @@
       "group": "GAMETYPE_TOP_DOWN",
       "type": "select",
       "options": [
+        [4, "FIELD_GRID_4PX"],
         [8, "FIELD_GRID_8PX"],
         [16, "FIELD_GRID_16PX"]
       ],
